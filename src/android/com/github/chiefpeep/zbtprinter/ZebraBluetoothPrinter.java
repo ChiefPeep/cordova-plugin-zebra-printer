@@ -57,7 +57,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
             try {
                 String mac = args.getString(0);
                 getStatus(callbackContext, mac);
-            } catch {Exception e}{
+            } catch (Exception e){
                 Log.e(LOG_TAG, e.getMessage());
                 e.printStackTrace();
             }
@@ -201,7 +201,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                     ZebraPrinter zPrinter = ZebraPrinterFactory.getInstance(thePrinterConn);
 
                     //Get printerStatus object for testing
-                    PrinterStatus printerStatus. zPrinter.getCurrentStatus();
+                    PrinterStatus printerStatus = zPrinter.getCurrentStatus();
 
 
                     //Check current status of printer to ensure printing is available and return response
