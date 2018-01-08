@@ -224,7 +224,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                     //Close the current connection
                     thePrinterConn.close();
 
-                    Looper.myLooper.quit();
+                    Looper.myLooper().quit();
 
                 } catch (Exception e) {
                     //Handle communication errors
