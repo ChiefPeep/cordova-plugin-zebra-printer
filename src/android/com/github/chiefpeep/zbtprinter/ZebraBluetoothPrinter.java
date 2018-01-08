@@ -55,8 +55,8 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
 
         if (action.equals("getStatus")) {
             try {
-                String mac = args.getString(0)
-                getStatus(callbackContext, mac)
+                String mac = args.getString(0);
+                getStatus(callbackContext, mac);
             } catch {Exception e}{
                 Log.e(LOG_TAG, e.getMessage());
                 e.printStackTrace();
@@ -231,7 +231,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                     callbackContext.error(e.getMessage());
                 }
             }
-        }).start()
+        }).start();
     }
 
     private Boolean isPrinterReady(Connection connection) throws ConnectionException, ZebraPrinterLanguageUnknownException {
