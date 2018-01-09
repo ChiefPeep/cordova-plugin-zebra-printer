@@ -1,7 +1,7 @@
 # zbtprinter
 A Cordova/Phonegap driver for Zebra bluetooth printers
 
-This is a fork of https://github.com/michael79bxl/zbtprinter.git
+This is a fork of https://github.com/diegorquera/zbtprinter.git
 
 Update version ZSDK_ANDROID_API.jar and permissions.
 
@@ -36,10 +36,22 @@ window.cordova.plugins.zbtprinter.print(address, "^XA^FO20,20^A0N,25,25^FDThis i
 );
 ```
 
+You can get a status response from a connected Zebra printer using:
+
+```
+window.cordova.plugins.zbtprinter.getStatus(address,
+    function(success){
+        alert("Zbtprinter status: " + success);
+    }, function(fail) {
+        alert("Zbtprinter error: " + fail);
+    }
+);
+```
+
 ## Install Cordova
 
 ```
-cordova plugin add cordova-plugin-zebra-printer
+cordova plugin add https://github.com/ChiefPeep/cordova-plugin-zebra-printer.git
 ```
 
 ## ZPL - Zebra Programming Language
