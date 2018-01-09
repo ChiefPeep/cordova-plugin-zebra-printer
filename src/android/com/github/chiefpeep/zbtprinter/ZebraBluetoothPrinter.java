@@ -182,7 +182,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
         }).start();
     }
 
-    public String getStatus(final CallbackContext callbackContext, final String mac) throws IOException {
+    void getStatus(final CallbackContext callbackContext, final String mac) throws IOException {
         new Thread(new Runnable() {
             @Override
             public void run() {
