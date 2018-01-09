@@ -183,7 +183,50 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
     }
 
     void getStatus(final CallbackContext callbackContext, final String mac) throws IOException {
-        callbackContext.success("Done");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    Connection thePrinterConn = new BluetoothConnectionInsecure(mac);
+
+
+                    Looper.prepare();
+
+                    thePrinterConn.open();
+
+                    ZebraPrinter zPrinter = ZebraPrinterFactory.getInstance(thePrinterConn);
+                    PrinterStatus printerStatus = zPrinter.getCurrentStatus();
+
+                    if (printerStatus.isPrinterReady){
+                        callbackContext.success("Printer is ready for use");
+                    }
+
+                    else if(printerStatus.isPaused){
+                        callbackContext.error("Printer is currently paused");
+                    }
+
+                    else if(printerStatus.isPaperOut){
+                        callbackcontext.error("Printer is out of paper");
+                    }
+
+                    else if(printerStatus.isHeadOpen){
+                        callbackContext.error("Printer head is open");
+                    }
+                    
+                    else{
+                        callbackContext.error("Cannot print, unknown error");
+                    }
+
+                    thePrinterConn.close();
+
+                    Looper.myLooper().quit();
+                } catch (Exception e){
+                    callbackContext.error(e.getMessage());
+                }
+            }
+        }).start();
+
     }
 
     private Boolean isPrinterReady(Connection connection) throws ConnectionException, ZebraPrinterLanguageUnknownException {
