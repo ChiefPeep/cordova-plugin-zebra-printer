@@ -14,5 +14,5 @@ exports.find = function(successCallback, errorCallback) {
 
 exports.getStatus = function(mac, successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, 'ZebraBluetoothPrinter', 'getStatus', [mac])
-}
+};
 
