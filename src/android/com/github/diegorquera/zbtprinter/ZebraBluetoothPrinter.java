@@ -52,15 +52,15 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
             }
             return true;
         }
-
         if (action.equals("getStatus")) {
             try {
                 String mac = args.getString(0);
-                getStatus(callbackContext, mac);
-            } catch (Exception e){
+                printLabel(callbackContext, mac);
+            } catch (Exception e) {
                 Log.e(LOG_TAG, e.getMessage());
                 e.printStackTrace();
             }
+            return true;
         }
         return false;
     }
@@ -183,55 +183,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
     }
 
     void getStatus(final CallbackContext callbackContext, final String mac) throws IOException {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    //Link devices with a given MAC Address input by user
-                    Connection thePrinterConn = new BluetoothConnectionInsecure(mac);
-
-                    //Initialize Android plugin
-                    Looper.prepare();
-
-                    //Establish connection with Zebra device
-                    thePrinterConn.open();
-
-                    //Setup instance of ZebraPrinter object
-                    ZebraPrinter zPrinter = ZebraPrinterFactory.getInstance(thePrinterConn);
-
-                    //Get printerStatus object for testing
-                    PrinterStatus printerStatus = zPrinter.getCurrentStatus();
-
-
-                    //Check current status of printer to ensure printing is available and return response
-                    if (printerStatus.isReadyToPrint){
-                        callbackContext.success("Printer is ready for use");
-                    }
-
-                    else if (printerStatus.isPaused){
-                        callbackContext.error("Printer is currently paused");
-                    }
-
-                    else if (printerStatus.isPaperOut){
-                        callbackContext.error("Printer is out of paper");
-                    }
-
-                    else if (printerStatus.isHeadOpen){
-                        callbackContext.error("Printer cannot print while head is open");
-                    }
-
-                    //Close the current connection
-                    thePrinterConn.close();
-
-                    Looper.myLooper().quit();
-
-                } catch (Exception e) {
-                    //Handle communication errors
-                    callbackContext.error(e.getMessage());
-                }
-            }
-        }).start();
+        callbackContext.success("Done")
     }
 
     private Boolean isPrinterReady(Connection connection) throws ConnectionException, ZebraPrinterLanguageUnknownException {
