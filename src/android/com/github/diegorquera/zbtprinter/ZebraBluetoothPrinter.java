@@ -198,7 +198,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                     ZebraPrinter zPrinter = ZebraPrinterFactory.getInstance(thePrinterConn);
                     PrinterStatus printerStatus = zPrinter.getCurrentStatus();
 
-                    if (printerStatus.isPrinterReady){
+                    if (printerStatus.isReadyToPrint){
                         callbackContext.success("Printer is ready for use");
                     }
 
@@ -207,7 +207,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                     }
 
                     else if(printerStatus.isPaperOut){
-                        callbackcontext.error("Printer is out of paper");
+                        callbackContext.error("Printer is out of paper");
                     }
 
                     else if(printerStatus.isHeadOpen){
